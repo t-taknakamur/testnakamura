@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=1042" />
-    <title>モバイルオーダー＆モバイルPOS | 全部つながるOkageレジ管理画面</title>
+    <title>モバイルオーダー＆モバイルPOS | 全部つながる管理画面</title>
 <link href="./bootstrap3.7/css/font-awesome.min.css" rel="stylesheet">
 <link href="./css/style_paper_2.css" rel="stylesheet" type="text/css" />
 <link href="./css/csv_upload.css" rel="stylesheet" type="text/css" />
@@ -650,7 +650,7 @@
                         管理画面
                     </h2>
                     <p class="primary-color" style="font-size:14pt;margin-top: 10px">
-                        
+                        test
                     </p>
                 </div>
                 <a href="<?php echo Yii::app()->createUrl("/issues/taxrate2019");?>" class="btn btn-danger" style="position: absolute; top:60px; right:10px;">!!!!増税・軽減税率対応はこちら!!!!</a>
