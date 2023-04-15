@@ -647,10 +647,10 @@
                 <div class="row">
                 <div class="col-md-5 slogan">
                     <h2 style="font-size:22pt">
-                        Okageレジ管理画面
+                        管理画面
                     </h2>
                     <p class="primary-color" style="font-size:14pt;margin-top: 10px">
-                        Okage Regi
+                        
                     </p>
                 </div>
                 <a href="<?php echo Yii::app()->createUrl("/issues/taxrate2019");?>" class="btn btn-danger" style="position: absolute; top:60px; right:10px;">!!!!増税・軽減税率対応はこちら!!!!</a>
