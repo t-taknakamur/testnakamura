@@ -59,6 +59,216 @@ table.dataTable td {
   position: fixed;
   width: 100%;
 }
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+.section {
+  height: 100vh;
+}
+.section1 {
+  background-color: #ccccff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section2 {
+  background-color: #99ccff;
+}
+.section3 {
+  background-color: #ffccff;
+}
+
+/**************************\
+  Basic Modal Styles
+\**************************/
+
+.modal {
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+}
+
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__container {
+  background-color: #fff;
+  padding: 30px;
+  max-width: 500px;
+  max-height: 100vh;
+  border-radius: 4px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 480px) {
+  .modal__container {
+    max-height: 90vh;
+    max-width: 300px;
+  }
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal__title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: #00449e;
+  box-sizing: border-box;
+}
+
+.modal__close {
+  background: transparent;
+  border: 0;
+}
+
+.modal__header .modal__close:before {
+  content: "\2715";
+}
+
+.modal__content {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.modal__btn {
+  font-size: 0.875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: #e6e6e6;
+  color: rgba(0, 0, 0, 0.8);
+  border-radius: 0.25rem;
+  border-style: none;
+  border-width: 0;
+  cursor: pointer;
+  -webkit-appearance: button;
+  text-transform: none;
+  overflow: visible;
+  line-height: 1.15;
+  margin: 0;
+  will-change: transform;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  transition: -webkit-transform 0.25s ease-out;
+  transition: transform 0.25s ease-out;
+  transition: transform 0.25s ease-out, -webkit-transform 0.25s ease-out;
+}
+
+.modal__btn:focus,
+.modal__btn:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.modal__btn-primary {
+  background-color: #00449e;
+  color: #fff;
+}
+
+/**************************\
+  Demo Animation Style
+\**************************/
+@keyframes mmfadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mmfadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes mmslideIn {
+  from {
+    transform: translateY(15%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes mmslideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10%);
+  }
+}
+
+.micromodal-slide {
+  display: none;
+}
+
+.micromodal-slide.is-open {
+  display: block;
+}
+
+.micromodal-slide[aria-hidden="false"] .modal__overlay {
+  animation: mmfadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="false"] .modal__container {
+  animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .modal__overlay {
+  animation: mmfadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide[aria-hidden="true"] .modal__container {
+  animation: mmslideOut 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.micromodal-slide .modal__container,
+.micromodal-slide .modal__overlay {
+  will-change: transform;
+}
+
+
+
+
+
+
+
+
+
+
 </style>
 <link href="<?php echo Yii::app()->baseUrl; ?>/css/datatable/jquery.dataTables.min.css" rel='stylesheet' />
 <link href="<?php echo Yii::app()->baseUrl; ?>/css/datatable/style.css" rel='stylesheet' />
@@ -1641,7 +1851,7 @@ foreach ($categories as $category) {
 
 <!-- モダール -->
 <div class="btn-wrap">
-  <a href="#modal" class="btn js-modal-target">リンクをクリック</a>
+  <a href="#modal" class="modaal btn js-modal-target" data-modaal-type="inline">リンクをクリック</a>
   <button class="btn js-modal-button-target" data-modal="#modal">ボタンをクリック</button>
 </div>
     
@@ -1649,11 +1859,33 @@ foreach ($categories as $category) {
   <p>モーダルの内容が表示されます</p>
 </div>
 <!-- モダール -->
-<div id="myModal" style="display:none;">
-  <p>モーダルの内容をここに書きます</p>
-</div>
 
-<button id="openModal">モーダルを開く</button>
+
+<main class="container">
+  <section class="section section1"> <button class="modal__btn modal__btn-primary" data-micromodal-trigger="modal-1" role="button">モーダルを開く</button></section>
+
+  <!-- ここからモーダルエリアです。 -->
+  <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+        <div role="document">
+          <header class="modal__header">
+            <h2 class="modal__title" id="modal-1-title">
+              モーダルとは
+            </h2>
+            <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+          </header>
+          <main class="modal__content" id="modal-1-content">
+            <p>モーダルウィンドウとは、操作が完了するまで親ウィンドウへの操作を受け付けなくさせるタイプのウィンドウです。こちらの例では、コンテンツを浮かび上がるように表示しています。</p>
+          </main>
+          <footer class="modal__footer">
+            <button class="modal__btn modal__btn-primary" data-micromodal-close aria-label="Close this dialog window">わかった！</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 
 
 <script type='text/javascript' src="<?php echo Yii::app()->baseUrl; ?>/js/datatable/jquery.dataTables.min.js"></script>
@@ -1702,15 +1934,30 @@ foreach ($categories as $category) {
             //     $(window).scrollTop(scrollPosition);
             // });
 
-            var scrollPosition = $(window).scrollTop();
-            $('body').css('overflow', 'hidden');
-            let hint_message = $(this).data('hint');
-            $('#hintmodal .hint-text').text(hint_message);
-            $('#hintmodal').modal();
-            $('#hintmodal').on('hide.bs.modal', function () {
-                $('body').css('overflow', '');
-                $(window).scrollTop(scrollPosition);
-            });
+            // var scrollPosition = $(window).scrollTop();
+            // //$('body').css('overflow', 'hidden');
+            // let hint_message = $(this).data('hint');
+            // $('#hintmodal .hint-text').text(hint_message);
+            // $('#hintmodal').modal();
+            // $('#hintmodal').on('hide.bs.modal', function () {
+            //     $('body').css('overflow', '');
+            //     $(window).scrollTop(scrollPosition);
+            // });
+            //    modalを開いた時
+        current_scrollY = $( window ).scrollTop();
+        $('#hintmodal').on('shown.bs.modal', function (event) {
+            $('body').css( {
+                position: 'fixed',
+                //width: '100%',
+                top: -1 * current_scrollY
+            } );
+        });
+
+        //  modalを閉じた時
+        $('#hintmodal').on('hidden.bs.modal', function (event) {
+            $( 'body' ).attr( { style: '' } );
+            $( 'html, body' ).prop( { scrollTop: current_scrollY } );
+        });
         });
 
 
@@ -1748,34 +1995,10 @@ foreach ($categories as $category) {
             });
         }
 
-        
-// モーダルを開くボタンがクリックされたら
-$('#openModal').on('click', function() {
-  // ダイアログを表示する
-  $('#myModal').dialog({
-    modal: true,  // モーダルダイアログにする
-    closeOnEscape: true,  // ESCキーで閉じる
-    draggable: false,  // ドラッグできなくする
-    resizable: false,  // リサイズできなくする
-    width: 400,  // 幅
-    height: 'auto',  // 高さ
-    buttons: {
-      '閉じる': function() {  // 閉じるボタンがクリックされたら
-        $(this).dialog('close');  // ダイアログを閉じる
-      }
-    },
-    open: function(event, ui) {  // ダイアログが開いたら
-      $('body').css('overflow', 'hidden');  // スクロールバーを非表示にする
-    },
-    close: function(event, ui) {  // ダイアログが閉じたら
-      $('body').css('overflow', '');  // スクロールバーを表示する
-    }
-  });
-});
-
-
-
-
-
     });
+    MicroModal.init({
+  awaitCloseAnimation: true,
+  awaitOpenAnimation: true,
+  disableScroll: true
+});
 </script>
