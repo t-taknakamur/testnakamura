@@ -54,6 +54,11 @@ table.dataTable td {
 .modal {
  display: none;
 }
+.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
 </style>
 <link href="<?php echo Yii::app()->baseUrl; ?>/css/datatable/jquery.dataTables.min.css" rel='stylesheet' />
 <link href="<?php echo Yii::app()->baseUrl; ?>/css/datatable/style.css" rel='stylesheet' />
@@ -1644,6 +1649,12 @@ foreach ($categories as $category) {
   <p>モーダルの内容が表示されます</p>
 </div>
 <!-- モダール -->
+<div id="myModal" style="display:none;">
+  <p>モーダルの内容をここに書きます</p>
+</div>
+
+<button id="openModal">モーダルを開く</button>
+
 
 <script type='text/javascript' src="<?php echo Yii::app()->baseUrl; ?>/js/datatable/jquery.dataTables.min.js"></script>
 
@@ -1668,10 +1679,39 @@ foreach ($categories as $category) {
             //     $('body').css('overflow', '');
             //     $(window).scrollTop(scrollPosition);
 
+            // let hint_message = $(this).data('hint');
+            // $('#hintmodal .hint-text').text(hint_message);
+            // $('#hintmodal').modal();
+
+            // // モーダルが閉じる前にスクロール位置を戻す
+            // $('#hintmodal').on('hide.bs.modal', function () {
+            //     var scrollPosition = $(window).scrollTop();
+            //     $('body').css('overflow', '');
+            //     $(window).scrollTop(scrollPosition);
+            // });
+
+            // // スクロール位置を取得して保存する
+            // var scrollPosition = $(window).scrollTop();
+            // // モーダルに表示するメッセージを設定する
+            // let hint_message = $(this).data('hint');
+            // $('#hintmodal .hint-text').text(hint_message);
+            // // モーダルを表示する
+            // $('#hintmodal').modal();
+            // // モーダルが閉じられたときにスクロール位置を復元する
+            // $('#hintmodal').on('hidden.bs.modal', function () {
+            //     $(window).scrollTop(scrollPosition);
+            // });
+
+            var scrollPosition = $(window).scrollTop();
+            $('body').css('overflow', 'hidden');
             let hint_message = $(this).data('hint');
-    $('#hintmodal .hint-text').text(hint_message);
-    $('#hintmodal').modal('show');
-});
+            $('#hintmodal .hint-text').text(hint_message);
+            $('#hintmodal').modal();
+            $('#hintmodal').on('hide.bs.modal', function () {
+                $('body').css('overflow', '');
+                $(window).scrollTop(scrollPosition);
+            });
+        });
 
 
         // モーダルが閉じられた後に実行する処理
@@ -1696,17 +1736,46 @@ foreach ($categories as $category) {
             });
         });
 
-    'use strict';
-    
-    //モーダル表示
-    if ($(".js-modal-target").length > 0) {
-      $(".js-modal-target").modaal();
+        'use strict';
+        //モーダル表示
+        if ($(".js-modal-target").length > 0) {
+            $(".js-modal-target").modaal();
+        }
+        if ($(".js-modal-button-target").length > 0) {
+            var target = $(".js-modal-button-target").data('modal');
+            $(".js-modal-button-target").modaal({
+                content_source: target
+            });
+        }
+
+        
+// モーダルを開くボタンがクリックされたら
+$('#openModal').on('click', function() {
+  // ダイアログを表示する
+  $('#myModal').dialog({
+    modal: true,  // モーダルダイアログにする
+    closeOnEscape: true,  // ESCキーで閉じる
+    draggable: false,  // ドラッグできなくする
+    resizable: false,  // リサイズできなくする
+    width: 400,  // 幅
+    height: 'auto',  // 高さ
+    buttons: {
+      '閉じる': function() {  // 閉じるボタンがクリックされたら
+        $(this).dialog('close');  // ダイアログを閉じる
+      }
+    },
+    open: function(event, ui) {  // ダイアログが開いたら
+      $('body').css('overflow', 'hidden');  // スクロールバーを非表示にする
+    },
+    close: function(event, ui) {  // ダイアログが閉じたら
+      $('body').css('overflow', '');  // スクロールバーを表示する
     }
-    if ($(".js-modal-button-target").length > 0) {
-      var target = $(".js-modal-button-target").data('modal');
-      $(".js-modal-button-target").modaal({
-        content_source: target
-      });
-    }
+  });
+});
+
+
+
+
+
     });
 </script>
