@@ -59,216 +59,76 @@ table.dataTable td {
   position: fixed;
   width: 100%;
 }
-
-
-
-
-* {
-  box-sizing: border-box;
+.button {
+  background: lightblue;
+  /* color: #fff; */
+  /* padding: 0 2em; */
+  border: 0;
+  width: 50px;
+  height: 10px;
+  /* font-size: 5px; */
+  /* border-radius: 5px; */
+  /* font-weight: 900; */
+  position: relative;
+  /* left: 400px;
+  top: 260px; */
+  font-family: serif;
 }
 
-.section {
-  height: 100vh;
+.button:hover {
+  background: lightcoral;
+  cursor: pointer;
 }
-.section1 {
-  background-color: #ccccff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.section2 {
-  background-color: #99ccff;
-}
-.section3 {
-  background-color: #ffccff;
-}
-
-/**************************\
-  Basic Modal Styles
-\**************************/
 
 .modal {
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
-    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
-}
-
-.modal__overlay {
-  position: fixed;
-  top: 0;
+  display: none;
+  /* position: fixed; */
+  z-index: 1;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
 }
 
-.modal__container {
-  background-color: #fff;
-  padding: 30px;
-  max-width: 500px;
-  max-height: 100vh;
-  border-radius: 4px;
-  overflow-y: auto;
-  box-sizing: border-box;
+.modal-content {
+  background-color: #f4f4f4;
+  margin: 20% auto;
+  width: 50%;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+  animation-name: modalopen;
+  animation-duration: 1s;
 }
 
-@media screen and (max-width: 480px) {
-  .modal__container {
-    max-height: 90vh;
-    max-width: 300px;
-  }
+@keyframes modalopen {
+  from {opacity: 0}
+  to {opacity: 1}
 }
 
-.modal__header {
+.modal-header h1 {
+  margin: 1rem 0;
+}
+
+.modal-header {
+  background: lightblue;
+  padding: 3px 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-.modal__title {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.25;
-  color: #00449e;
-  box-sizing: border-box;
+.modalClose {
+  font-size: 2rem;
 }
 
-.modal__close {
-  background: transparent;
-  border: 0;
-}
-
-.modal__header .modal__close:before {
-  content: "\2715";
-}
-
-.modal__content {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.modal__btn {
-  font-size: 0.875rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  background-color: #e6e6e6;
-  color: rgba(0, 0, 0, 0.8);
-  border-radius: 0.25rem;
-  border-style: none;
-  border-width: 0;
+.modalClose:hover {
   cursor: pointer;
-  -webkit-appearance: button;
-  text-transform: none;
-  overflow: visible;
-  line-height: 1.15;
-  margin: 0;
-  will-change: transform;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  transition: -webkit-transform 0.25s ease-out;
-  transition: transform 0.25s ease-out;
-  transition: transform 0.25s ease-out, -webkit-transform 0.25s ease-out;
 }
 
-.modal__btn:focus,
-.modal__btn:hover {
-  -webkit-transform: scale(1.05);
-  transform: scale(1.05);
+.modal-body {
+  padding: 10px 20px;
+  color: black;
 }
-
-.modal__btn-primary {
-  background-color: #00449e;
-  color: #fff;
-}
-
-/**************************\
-  Demo Animation Style
-\**************************/
-@keyframes mmfadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes mmfadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes mmslideIn {
-  from {
-    transform: translateY(15%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes mmslideOut {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-10%);
-  }
-}
-
-.micromodal-slide {
-  display: none;
-}
-
-.micromodal-slide.is-open {
-  display: block;
-}
-
-.micromodal-slide[aria-hidden="false"] .modal__overlay {
-  animation: mmfadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.micromodal-slide[aria-hidden="false"] .modal__container {
-  animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.micromodal-slide[aria-hidden="true"] .modal__overlay {
-  animation: mmfadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.micromodal-slide[aria-hidden="true"] .modal__container {
-  animation: mmslideOut 0.3s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.micromodal-slide .modal__container,
-.micromodal-slide .modal__overlay {
-  will-change: transform;
-}
-
-
-
-
-
-
-
-
-
-
 </style>
 <link href="<?php echo Yii::app()->baseUrl; ?>/css/datatable/jquery.dataTables.min.css" rel='stylesheet' />
 <link href="<?php echo Yii::app()->baseUrl; ?>/css/datatable/style.css" rel='stylesheet' />
@@ -1861,31 +1721,19 @@ foreach ($categories as $category) {
 <!-- モダール -->
 
 
-<main class="container">
-  <section class="section section1"> <button class="modal__btn modal__btn-primary" data-micromodal-trigger="modal-1" role="button">モーダルを開く</button></section>
-
-  <!-- ここからモーダルエリアです。 -->
-  <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
-    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-        <div role="document">
-          <header class="modal__header">
-            <h2 class="modal__title" id="modal-1-title">
-              モーダルとは
-            </h2>
-            <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-          </header>
-          <main class="modal__content" id="modal-1-content">
-            <p>モーダルウィンドウとは、操作が完了するまで親ウィンドウへの操作を受け付けなくさせるタイプのウィンドウです。こちらの例では、コンテンツを浮かび上がるように表示しています。</p>
-          </main>
-          <footer class="modal__footer">
-            <button class="modal__btn modal__btn-primary" data-micromodal-close aria-label="Close this dialog window">わかった！</button>
-          </footer>
-        </div>
+<button id="modalOpen" class="button">Click Me</button>
+  <div id="easyModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Great job 🎉</h1>
+        <span class="modalClose">×</span>
+      </div>
+      <div class="modal-body">
+        <p>You've just displayed this awesome Modal Window!</p>
+        <p>Let's enjoy learning JavaScript ☺️</p>
       </div>
     </div>
   </div>
-</main>
 
 
 <script type='text/javascript' src="<?php echo Yii::app()->baseUrl; ?>/js/datatable/jquery.dataTables.min.js"></script>
@@ -1986,7 +1834,16 @@ foreach ($categories as $category) {
         'use strict';
         //モーダル表示
         if ($(".js-modal-target").length > 0) {
-            $(".js-modal-target").modaal();
+            $(".js-modal-target").modaal({
+        before_open: function () {
+            // モーダルが開く前に現在のスクロール位置を記憶
+            this.currentScrollPosition = $(window).scrollTop();
+        },
+        after_close: function () {
+            // モーダルが閉じた後に、記憶したスクロール位置に戻す
+            $('html, body').animate({ scrollTop: this.currentScrollPosition }, 'slow');
+        }
+    });
         }
         if ($(".js-modal-button-target").length > 0) {
             var target = $(".js-modal-button-target").data('modal');
@@ -1996,9 +1853,28 @@ foreach ($categories as $category) {
         }
 
     });
-    MicroModal.init({
-  awaitCloseAnimation: true,
-  awaitOpenAnimation: true,
-  disableScroll: true
-});
+
+    const buttonOpen = document.getElementById('modalOpen');
+const modal = document.getElementById('easyModal');
+const buttonClose = document.getElementsByClassName('modalClose')[0];
+
+// ボタンがクリックされた時
+buttonOpen.addEventListener('click', modalOpen);
+function modalOpen() {
+  modal.style.display = 'block';
+}
+
+// バツ印がクリックされた時
+buttonClose.addEventListener('click', modalClose);
+function modalClose() {
+  modal.style.display = 'none';
+}
+
+// モーダルコンテンツ以外がクリックされた時
+addEventListener('click', outsideClose);
+function outsideClose(e) {
+  if (e.target == modal) {
+    modal.style.display = 'none';
+  }
+}
 </script>
